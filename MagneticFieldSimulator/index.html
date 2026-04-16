@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnetic Field Energy Simulator</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-magnet"></i> MFES
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#simulation">Simulation</a></li>
+            <li><a href="#theory">Theory</a></li>
+            <li><a href="#applications">Applications</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+        </ul>
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="Magnetic Field Energy Simulator">Magnetic Field Energy Simulator</h1>
+            <p>Explore the invisible power of electromagnetism. Visualize magnetic fields, compute stored energy, and compare it with capacitive systems.</p>
+            <a href="#simulation" class="btn primary-btn">Launch Simulator <i class="fa-solid fa-rocket"></i></a>
+        </div>
+        <!-- Abstract background animation container -->
+        <div id="hero-bg"></div>
+    </section>
+
+    <!-- Simulation & Dashboard Section -->
+    <section id="simulation" class="dashboard">
+        <h2 class="section-title">Interactive Simulator</h2>
+        
+        <div class="toggle-container">
+            <span class="toggle-label active" id="label-inductor">Inductor Mode</span>
+            <label class="switch">
+                <input type="checkbox" id="mode-toggle">
+                <span class="slider round"></span>
+            </label>
+            <span class="toggle-label" id="label-capacitor">Capacitor Mode</span>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- 3D Viewport -->
+            <div class="panel view-panel glass">
+                <div id="threejs-canvas"></div>
+                <div class="hud">
+                    <div class="hud-item B-field-display">
+                        <span>B-Field:</span>
+                        <strong id="b-val" class="neon-text">0.00</strong> <small>T</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="panel controls-panel glass">
+                <h3><i class="fa-solid fa-sliders"></i> System Parameters</h3>
+                
+                <div class="control-group" id="ctrl-1">
+                    <label for="val-1"><span id="lbl-1">Current (I)</span> <span id="out-1" class="val-out">0</span> <span id="unit-1">A</span></label>
+                    <input type="range" id="val-1" min="0" max="10" step="0.1" value="0">
+                </div>
+
+                <div class="control-group" id="ctrl-2">
+                    <label for="val-2"><span id="lbl-2">Turns (N)</span> <span id="out-2" class="val-out">100</span> <span id="unit-2"></span></label>
+                    <input type="range" id="val-2" min="10" max="1000" step="10" value="100">
+                </div>
+
+                <div class="control-group" id="ctrl-3">
+                    <label for="val-3"><span id="lbl-3">Length (l)</span> <span id="out-3" class="val-out">0.5</span> <span id="unit-3">m</span></label>
+                    <input type="range" id="val-3" min="0.1" max="2" step="0.1" value="0.5">
+                </div>
+                
+                <div class="result-box glow-box">
+                    <h4>Stored Energy (W)</h4>
+                    <div class="energy-val"><span id="w-val">0.00</span> <span class="unit">Joules</span></div>
+                    <div class="formula-display" id="formula-display">W = ½ L I²</div>
+                </div>
+            </div>
+
+            <!-- Graph -->
+            <div class="panel graph-panel glass">
+                <h3><i class="fa-solid fa-chart-line"></i> Energy vs <span id="graph-x-lbl">Current</span></h3>
+                <div class="chart-container">
+                    <canvas id="energyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theory Section -->
+    <section id="theory" class="theory-section">
+        <h2 class="section-title">Core Principles</h2>
+        <div class="cards-container">
+            <div class="theory-card glass">
+                <div class="icon-wrapper"><i class="fa-solid fa-magnet"></i></div>
+                <h3>Magnetic Field (B)</h3>
+                <p class="formula">B = μ₀nI</p>
+                <p>The magnetic field inside a long solenoid is uniform and proportional to the current and turns per unit length.</p>
+            </div>
+            <div class="theory-card glass">
+                <div class="icon-wrapper"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Magnetic Energy (W)</h3>
+                <p class="formula">W = ½LI²</p>
+                <p>Energy is stored in the magnetic field generated by an inductor when current flows through it.</p>
+            </div>
+            <div class="theory-card glass">
+                <div class="icon-wrapper"><i class="fa-solid fa-cube"></i></div>
+                <h3>Energy Density (u)</h3>
+                <p class="formula">u = B² / (2μ₀)</p>
+                <p>The amount of energy stored per unit volume in a region of empty space where a magnetic field exists.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Section -->
+    <section id="applications" class="applications">
+        <h2 class="section-title">Real-world Applications</h2>
+        <div class="app-grid">
+            <div class="app-card">
+                <div class="app-img trans-bg"></div>
+                <div class="app-content">
+                    <h3>Transformers</h3>
+                    <p>Uses magnetic coupling to step up or step down AC voltages efficiently across power grids.</p>
+                </div>
+            </div>
+            <div class="app-card">
+                <div class="app-img motor-bg"></div>
+                <div class="app-content">
+                    <h3>Electric Motors</h3>
+                    <p>Converts electrical energy into mechanical energy through interacting magnetic fields.</p>
+                </div>
+            </div>
+            <div class="app-card">
+                <div class="app-img wireless-bg"></div>
+                <div class="app-content">
+                    <h3>Wireless Charging</h3>
+                    <p>Transfers power across empty space via electromagnetic induction between two coils.</p>
+                </div>
+            </div>
+            <div class="app-card">
+                <div class="app-img power-bg"></div>
+                <div class="app-content">
+                    <h3>Power Supplies</h3>
+                    <p>Inductors act as filters in switch-mode power supplies to smooth out current fluctuations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="quiz-section">
+        <h2 class="section-title">Test Your Knowledge</h2>
+        <div class="quiz-container glass">
+            <!-- Questions rendered via JS -->
+            <div id="quiz-wrapper"></div>
+            <div class="quiz-controls">
+                <button id="prev-btn" class="btn outline-btn" disabled>Previous</button>
+                <span id="quiz-progress">1 / 4</span>
+                <button id="next-btn" class="btn outline-btn">Next</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Created for Physics Demo | Magnetic Field Energy Simulator</p>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Three.js Pipeline -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- App Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
